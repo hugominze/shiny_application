@@ -1,19 +1,35 @@
 library(shiny)
-shinyUI(fluidPage(
-        titlePanel("Predict mpg from cyl"),
+library(ggplot2)
+
+ui <- fluidPage(
+
         sidebarLayout(
+
+                # Inputs: Select variables to plot
                 sidebarPanel(
-                        sliderInput("slidercyl", "What is the cyl of the car", 4, 8, value = 4, step=2),
-                        checkboxInput("showModel1", "Show/Hide regression line", value = TRUE)
+
+                        # Select variable for y-axis
+                        selectInput(
+                                inputId = "y",
+                                label = "Y-axis:",
+                                choices = c("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"),
+                                selected = "mpg"
+                        ),
+                        # Select variable for x-axis
+                        selectInput(
+                                inputId = "x",
+                                label = "X-axis:",
+                                choices = c("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"),
+                                selected = "cyl"
+                        )
                 ),
+
+                # Output: Show scatterplot
                 mainPanel(
-                        h3("How to use this app:"),
-                        p("1. Use the slider in the side panel to predict mpg (miles per gallon) from cyl (number of cylinders) based on the data in the mtcars dataset."),
-                        p("2. Below the slider you are able to check wether you want the see the calculated regression line."),
-                        p("3. The red line/dot shows the predicted miles per gallon from the number of cylinders. Below the diagram, you can find the calculated predicted mpg."),
-                        plotOutput("plot1"),
-                        h3("Predicted MPG from lm(mpg ~ cyl, data = mtcars):"),
-                        textOutput("pred1")
+                        h2("Scatterplot with different variables"),
+                        p("Below you can see a scatterplot which plots 2 different variables from the mtcars dataset. In the side panel, you can choose the variables for the x- and y-axis."),
+                        plotOutput(outputId = "scatterplot")
+
                 )
         )
-))
+)
