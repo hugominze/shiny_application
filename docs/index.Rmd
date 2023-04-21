@@ -2,7 +2,7 @@
 title: "Scatterplot with different variables"
 author: "hugominze"
 date: "`r Sys.Date()`"
-output: ioslides_presentation
+output: html_document 
 runtime: shiny
 ---
 
